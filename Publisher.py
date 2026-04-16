@@ -1,23 +1,17 @@
 from time import sleep
 import paho.mqtt.client as mqtt
 
-client = mqtt.Client()
-client.connect("localhost", 1883, 60)
 
-i = 0
 
-try:
-    while True:
-        i += 1
-        message = f"Nachricht {i}"
 
-        client.publish("test/topic", message)
-        print(f"Gesendet: {message}")
+class Publisher:
+    def __init__(self, broker_address = "localhost", broker_port = 1883):
+    
+        self.client = mqtt.Client()
+        self.client.connect(broker_address, broker_port, 60)
 
-        sleep(5)
+    
+    def publish_message(self, topic = "test/topic", message = "default message"):
+        self.client.publish(topic, message)
+        print(f"Gesendet: {message} auf {topic}")
 
-except KeyboardInterrupt:
-    print("Publisher beendet")
-
-finally:
-    client.disconnect()

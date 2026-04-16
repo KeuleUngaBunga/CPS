@@ -1,0 +1,9 @@
+in mqtt-broker:
+
+Start:
+docker compose up -d
+Stop:
+docker stop mosquitto
+Status:
+docker ps
+docker ps -a
